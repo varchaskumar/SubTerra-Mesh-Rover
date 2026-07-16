@@ -1,16 +1,136 @@
-# React + Vite
+# 🚧 Autonomous Tunnel Assistant Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A futuristic industrial dashboard built for the **Coal India Limited (CIL-MIN) Hackathon** to visualize and monitor an **Autonomous Underground Tunnel Inspection Robot**.
 
-Currently, two official plugins are available:
+The dashboard provides a mission-control style interface for monitoring robot health, environmental conditions, live camera feeds, and an interactive 3D visualization of the robot.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the Oxlint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### 🤖 Interactive 3D Robot Viewer
+
+- Interactive 3D robot visualization
+- Mouse rotation
+- Zoom controls
+- Pan controls
+- Automatic rotation
+- Responsive viewport
+- Built using **Google Model Viewer**
+
+---
+
+### 📊 Robot Telemetry
+
+- Battery Status
+- Motherboard Temperature
+- Signal Strength
+- Repeaters Dispensed
+- Distance from Left Wall
+- Distance from Right Wall
+
+---
+
+### 🌍 Environmental Monitoring
+
+- CO Sensor
+- Methane Sensor
+- PM1.0
+- PM2.5
+- PM10
+- Ambient Temperature
+- Humidity
+- Water Detection
+
+---
+
+### 📷 Camera Panels
+
+- Front RGB Camera
+- Thermal / Infrared Camera
+
+(Currently uses placeholder feeds.)
+
+---
+
+### 📋 Mission Information
+
+- Mission Status
+- Robot Status
+- Navigation State
+- Communication Status
+- System Logs
+
+---
+
+## 🛠 Tech Stack
+
+- React
+- Vite
+- Tailwind CSS
+- Google `<model-viewer>`
+- Lucide React Icons
+
+---
+
+
+## 🚀 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url>
+```
+
+### 2. Install dependencies
+
+```bash
+npm install
+```
+
+### 3. Start the development server
+
+```bash
+npm run dev
+```
+
+---
+
+## 🎯 Project Objective
+
+The goal of this dashboard is to provide operators with a centralized interface for monitoring an autonomous underground inspection robot capable of:
+
+- Tunnel Inspection
+- Environmental Monitoring
+- Hazard Detection
+- Remote Navigation Assistance
+- Worker Safety Monitoring
+
+---
+
+## 🔮 Future Scope
+
+- Live sensor integration
+- ROS communication
+- ESP32 telemetry
+- Real-time camera streaming
+- Tunnel mapping
+- LiDAR visualization
+- Autonomous navigation status
+- MQTT/WebSocket communication
+- Cloud logging
+- Mission replay
+
+---
+
+## 👨‍💻 Team
+
+Developed for the **Coal India Limited (CIL-MIN) Hackathon**.
+
+---
+
+## 📄 License
+
+This project was developed for educational and hackathon purposes.
