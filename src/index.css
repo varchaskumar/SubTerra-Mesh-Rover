@@ -1,0 +1,28 @@
+/* ============================================================
+   src/index.css
+   ============================================================
+   This is the ONLY CSS file in the project.
+
+   @import "tailwindcss" is the Tailwind v4 way — no separate
+   config file needed. Tailwind scans your JSX automatically.
+   ============================================================ */
+
+@import "tailwindcss";
+
+/* Remove default browser margin/padding so the viewer fills
+   the full viewport without white gaps at the edges. */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* The <model-viewer> element is a custom HTML element (Web
+   Component). By default browsers don't know how to size it,
+   so we tell it to act like a block-level box and fill 100%
+   of its parent container. */
+model-viewer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

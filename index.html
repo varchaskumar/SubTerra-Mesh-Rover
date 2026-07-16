@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autonomous Tunnel Assistant Robot</title>
+
+    <!--
+      Load <model-viewer> from Google's CDN.
+      WHY CDN instead of npm import:
+        - The npm package is ~1 MB and Vite would pre-bundle it on every cold
+          start, causing the tab to spin with a white screen for 30-60 seconds.
+        - The CDN version loads in parallel, is already minified, and registers
+          the custom element before React even mounts — instant, reliable.
+    -->
+    <script
+      type="module"
+      src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"
+    ></script>
+  </head>
+  <body>
+    <!-- React mounts here -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
