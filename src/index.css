@@ -1,28 +1,47 @@
-/* ============================================================
-   src/index.css
-   ============================================================
-   This is the ONLY CSS file in the project.
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
-   @import "tailwindcss" is the Tailwind v4 way — no separate
-   config file needed. Tailwind scans your JSX automatically.
-   ============================================================ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import "tailwindcss";
-
-/* Remove default browser margin/padding so the viewer fills
-   the full viewport without white gaps at the edges. */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer utilities {
+    .glow-primary {
+        box-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
+    }
+    .glow-success {
+        box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+    }
+    .glow-error {
+        box-shadow: 0 0 8px rgba(248, 113, 113, 0.4);
+    }
+    .text-glow {
+        text-shadow: 0 0 4px currentColor;
+    }
+    .scada-border {
+        border: 1px solid rgba(156, 143, 120, 0.1);
+    }
 }
 
-/* The <model-viewer> element is a custom HTML element (Web
-   Component). By default browsers don't know how to size it,
-   so we tell it to act like a block-level box and fill 100%
-   of its parent container. */
-model-viewer {
-  width: 100%;
-  height: 100%;
-  display: block;
+/* Custom scrollbar for log area */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+}
+::-webkit-scrollbar-thumb {
+    background: #ffc107;
+    border-radius: 2px;
+}
+
+.marquee {
+    display: inline-block;
+    white-space: nowrap;
+    animation: marquee 20s linear infinite;
+}
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
 }

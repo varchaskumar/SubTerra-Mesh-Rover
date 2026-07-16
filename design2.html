@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CIL Autonomous Tunnel Assistant</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#121315",
+                        "surface-container-high": "#292a2c",
+                        "on-error-container": "#ffdad6",
+                        "tertiary-fixed": "#a5eeff",
+                        "on-secondary-fixed-variant": "#00497d",
+                        "inverse-on-surface": "#303033",
+                        "on-tertiary": "#00363f",
+                        "on-surface-variant": "#d4c5ab",
+                        "surface-container-lowest": "#0d0e10",
+                        "surface-bright": "#38393b",
+                        "on-secondary-fixed": "#001d36",
+                        "surface-container-highest": "#343537",
+                        "outline": "#9c8f78",
+                        "on-primary-fixed-variant": "#5b4300",
+                        "surface-variant": "#343537",
+                        "inverse-surface": "#e3e2e5",
+                        "outline-variant": "#4f4632",
+                        "inverse-primary": "#785900",
+                        "primary-fixed-dim": "#fabd00",
+                        "surface-tint": "#fabd00",
+                        "surface-container": "#1f2022",
+                        "primary": "#ffe4af",
+                        "primary-container": "#ffc107",
+                        "surface-container-low": "#1b1c1e",
+                        "tertiary": "#b4f0ff",
+                        "secondary": "#9ecaff",
+                        "error-container": "#93000a",
+                        "on-background": "#e3e2e5",
+                        "on-tertiary-container": "#005e6c",
+                        "tertiary-fixed-dim": "#00daf8",
+                        "on-tertiary-fixed": "#001f25",
+                        "tertiary-container": "#00defd",
+                        "on-primary": "#3f2e00",
+                        "on-surface": "#e3e2e5",
+                        "secondary-fixed": "#d1e4ff",
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "secondary-fixed-dim": "#9ecaff",
+                        "on-secondary": "#003258",
+                        "on-tertiary-fixed-variant": "#004e5a",
+                        "primary-fixed": "#ffdf9e",
+                        "on-secondary-container": "#002b4d",
+                        "on-primary-container": "#6d5100",
+                        "secondary-container": "#1e95f2",
+                        "background": "#121315",
+                        "surface": "#121315",
+                        "on-primary-fixed": "#261a00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "card-padding": "20px",
+                        "container-gap": "12px",
+                        "margin-page": "24px",
+                        "unit": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"],
+                        "telemetry-data": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "display-lg": ["JetBrains Mono"],
+                        "body-md": ["Inter"],
+                        "headline-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "telemetry-data": ["20px", { "lineHeight": "1", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-lg": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["14px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                        "headline-sm": ["18px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glow-primary {
+            box-shadow: 0 0 8px rgba(255, 193, 7, 0.4);
+        }
+        .glow-success {
+            box-shadow: 0 0 8px rgba(74, 222, 128, 0.4);
+        }
+        .glow-error {
+            box-shadow: 0 0 8px rgba(248, 113, 113, 0.4);
+        }
+        .text-glow {
+            text-shadow: 0 0 4px currentColor;
+        }
+        .scada-border {
+            border: 1px solid rgba(156, 143, 120, 0.1);
+        }
+        /* Custom scrollbar for log area */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.2);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ffc107;
+            border-radius: 2px;
+        }
+        
+        .marquee {
+            display: inline-block;
+            white-space: nowrap;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface h-screen w-screen overflow-hidden flex flex-col font-body-md select-none">
+<!-- Top Navigation App Bar from JSON -->
+<header class="bg-surface-container/40 dark:bg-surface-container/40 flex justify-between items-center px-margin-page py-3 fixed top-0 w-full z-50 backdrop-blur-xl border-b border-outline-variant/20">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container text-2xl">account_balance</span>
+<span class="text-headline-md font-headline-md font-bold tracking-tight text-primary dark:text-primary">CIL TUNNEL ASSISTANT</span>
+</div>
+<nav class="hidden md:flex gap-6 items-center border-l border-outline-variant/30 pl-6 h-8">
+<a class="text-primary font-bold border-b-2 border-primary pb-1 text-label-caps font-label-caps opacity-80 transition-opacity" href="#">MISSION ALPHA</a>
+<a class="text-on-surface-variant font-medium text-label-caps font-label-caps hover:text-primary-fixed transition-colors duration-200" href="#">SECTOR-7</a>
+<a class="text-on-surface-variant font-medium text-label-caps font-label-caps hover:text-primary-fixed transition-colors duration-200" href="#">AUTONOMOUS</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 bg-surface-container-high px-4 py-1.5 rounded border border-outline-variant/20">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-green-500 glow-success animate-pulse"></span>
+<span class="text-label-caps font-label-caps text-green-400">ONLINE</span>
+</div>
+<div class="w-px h-4 bg-outline-variant/50"></div>
+<span class="text-headline-sm font-headline-sm text-on-surface text-glow" id="live-clock">00:00:00</span>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="Settings" class="text-on-surface-variant hover:text-primary-fixed transition-colors duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button aria-label="Help" class="text-on-surface-variant hover:text-primary-fixed transition-colors duration-200">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button aria-label="Account" class="text-on-surface-variant hover:text-primary-fixed transition-colors duration-200">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+<button class="bg-red-500/20 text-red-400 border border-red-500/50 px-4 py-1.5 rounded text-label-caps font-label-caps font-bold hover:bg-red-500 hover:text-white transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">warning</span>
+                    E-STOP
+                </button>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex pt-[60px] pb-[32px] overflow-hidden gap-container-gap p-container-gap">
+<!-- Left Sidebar: Robot Health -->
+<aside class="w-64 bg-surface-container rounded-lg scada-border flex flex-col gap-4 p-card-padding overflow-y-auto shrink-0 relative">
+<div class="flex items-center gap-2 border-b border-outline-variant/20 pb-2 mb-2">
+<span class="material-symbols-outlined text-primary-container text-xl">robot_2</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">ROBOT HEALTH</h2>
+</div>
+<!-- Battery Gauge -->
+<div class="flex flex-col items-center justify-center p-4 bg-surface-container-high rounded scada-border relative">
+<svg class="w-32 h-32 transform -rotate-90">
+<circle class="text-surface-container-highest" cx="64" cy="64" fill="transparent" r="50" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary-container glow-primary" cx="64" cy="64" fill="transparent" r="50" stroke="currentColor" stroke-dasharray="314" stroke-dashoffset="47" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+<span class="text-telemetry-data font-telemetry-data text-on-surface">85%</span>
+<span class="text-[10px] text-on-surface-variant font-label-caps uppercase tracking-wider">PWR LVL</span>
+</div>
+</div>
+<!-- Motherboard Temp -->
+<div class="bg-surface-container-high p-3 rounded scada-border flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant">MB TEMP</span>
+<span class="text-telemetry-data font-telemetry-data text-green-400">42°C</span>
+</div>
+<span class="material-symbols-outlined text-green-400 text-2xl">device_thermostat</span>
+</div>
+<!-- Signal Strength -->
+<div class="bg-surface-container-high p-3 rounded scada-border flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant">LINK S/N</span>
+<span class="text-telemetry-data font-telemetry-data text-primary-container">-65dBm</span>
+</div>
+<div class="flex items-end gap-1 h-6">
+<div class="w-1.5 h-2 bg-primary-container"></div>
+<div class="w-1.5 h-3 bg-primary-container"></div>
+<div class="w-1.5 h-4 bg-primary-container"></div>
+<div class="w-1.5 h-5 bg-surface-container-highest"></div>
+<div class="w-1.5 h-6 bg-surface-container-highest"></div>
+</div>
+</div>
+<!-- Repeaters Dispensed -->
+<div class="bg-surface-container-high p-3 rounded scada-border flex justify-between items-center">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant">NODES DROPPED</span>
+<span class="text-telemetry-data font-telemetry-data text-on-surface">3/10</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-2xl">router</span>
+</div>
+<!-- Distance Sensors -->
+<div class="bg-surface-container-high p-3 rounded scada-border flex flex-col gap-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant">LIDAR CLEARANCE</span>
+<div class="flex justify-between items-center text-sm font-telemetry-data">
+<span class="text-on-surface">L: 1.2m</span>
+<div class="flex-1 mx-2 h-1 bg-surface-container-highest rounded overflow-hidden">
+<div class="h-full bg-green-500 w-[60%]"></div>
+</div>
+<span class="text-on-surface">R: 0.8m</span>
+</div>
+</div>
+<!-- Structural Sidebar from JSON intent (Mapping) -->
+<div class="mt-auto border-t border-outline-variant/20 pt-4 flex flex-col gap-2">
+<button class="bg-primary/10 text-primary border-l-4 border-primary px-4 py-2 text-left text-label-caps font-label-caps flex items-center gap-3 w-full hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-[18px]">map</span>
+                    MAPPING
+                </button>
+<button class="text-on-surface-variant hover:text-on-surface px-4 py-2 text-left text-label-caps font-label-caps flex items-center gap-3 w-full hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+                    TELEMETRY
+                </button>
+<button class="text-on-surface-variant hover:text-on-surface px-4 py-2 text-left text-label-caps font-label-caps flex items-center gap-3 w-full hover:bg-surface-container-high transition-all">
+<span class="material-symbols-outlined text-[18px]">sensors</span>
+                    SENSORS
+                </button>
+</div>
+</aside>
+<!-- Center Canvas & Bottom Grid -->
+<div class="flex-1 flex flex-col gap-container-gap overflow-hidden">
+<!-- Primary 3D Viewport Area -->
+<div class="flex-1 bg-surface-container rounded-lg scada-border p-1 relative overflow-hidden flex flex-col">
+<div class="absolute top-4 left-4 z-10 flex flex-col gap-1">
+<span class="bg-black/60 backdrop-blur text-white text-xs font-label-caps px-2 py-1 rounded scada-border inline-block w-fit">LIDAR POINT CLOUD</span>
+<span class="text-green-400 text-[10px] font-telemetry-data text-glow">FPS: 60 | RENDER: OGL</span>
+</div>
+<div class="absolute top-4 right-4 z-10 flex gap-2">
+<button class="bg-black/60 backdrop-blur p-2 rounded scada-border text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">360</span>
+</button>
+<button class="bg-black/60 backdrop-blur p-2 rounded scada-border text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm">zoom_in</span>
+</button>
+</div>
+<!-- WebGL Shader Placeholder -->
+<div class="w-full h-full bg-surface-dim relative rounded">
+<!-- Wireframe grid background effect -->
+<div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="text-on-surface-variant/30 text-headline-md font-headline-md font-bold tracking-widest border-2 border-on-surface-variant/20 p-8 rounded-lg border-dashed">3D SCANNER VIEWPORT</span>
+</div>
+</div>
+</div>
+<!-- Bottom Camera & Status Grid -->
+<div class="h-48 grid grid-cols-3 gap-container-gap shrink-0">
+<!-- Cam 1 -->
+<div class="bg-surface-container rounded-lg scada-border relative overflow-hidden group">
+<div class="absolute top-2 left-2 z-10 bg-black/60 backdrop-blur px-2 py-0.5 rounded text-[10px] font-label-caps text-white border border-white/10 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span>
+                        FRONT RGB
+                    </div>
+<!-- Dummy Image placeholder -->
+<img class="w-full h-full object-cover filter grayscale sepia-[.2]" data-alt="A static, slightly noisy, low-light industrial camera feed showing a dark, rough-hewn underground tunnel interior. The tunnel walls are rocky and uneven, illuminated sparsely by a harsh, cold white headlamp from a vehicle. The aesthetic is gritty, realistic, and utilitarian, typical of a mining or subterranean construction environment. Deep shadows and high contrast." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHp6GoWyF-qv4-9ZclL0FySHLJAPZquKIaSRLvh749TYQ6HkhsP0aE6wIwyk-KF00RfSjbDxi6JLGLlxirUZeNnN7trfryZgw_-jxqk_3PDhPNWjTYZjmM_6B1yiPlVP9xXc88bXrSm3g47bQM1XIscMIKDzq6U6twcPhpWM48_Ew7Yi-v_Ox0RQkzXXrdRUp6FU8fkEbjy7q_70o1r9TW-s-ovR9DNUZocKmFzEcPk3J_3OeCcWmQHg"/>
+<div class="absolute inset-0 border-2 border-transparent group-hover:border-primary-container/30 transition-colors pointer-events-none"></div>
+</div>
+<!-- Cam 2 -->
+<div class="bg-surface-container rounded-lg scada-border relative overflow-hidden group">
+<div class="absolute top-2 left-2 z-10 bg-black/60 backdrop-blur px-2 py-0.5 rounded text-[10px] font-label-caps text-white border border-white/10 flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                        THERMAL IR
+                    </div>
+<!-- Dummy Image placeholder -->
+<img class="w-full h-full object-cover" data-alt="A pseudo-color thermal imaging camera feed showing a tunnel structure. The image uses a classic 'ironbow' or 'rainbow' color palette where hot areas are bright yellow/white and cold areas are deep blue/purple. A subtle heat signature is visible in the distance. The style is highly technical, low-resolution, and functional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyaPvIVvZknaKOO-aOMDawGJBEv9wJogKPzsl1S3fCp2W_lCD1wKCSQjgo_aRBTuXgQSH34nePwihzjOYrMCwht07ybHIUdBpKVOoBkCwA9b7jb4ge6DhOHR5dLvpGYHZ4fVSzWqtqwA_uJwlxDzDchvjBePA8ikmA0Tj2I3d06omw-fI1cz8Tt6MCQQpUVCCP6WLBFFLdbS-I--4ZEI0cologlUHlfP1MphtPtkwfxJDhJYwGplr59A"/>
+<div class="absolute inset-0 border-2 border-transparent group-hover:border-primary-container/30 transition-colors pointer-events-none"></div>
+</div>
+<!-- Status Panel -->
+<div class="bg-surface-container rounded-lg scada-border p-4 flex flex-col justify-between">
+<h3 class="text-label-caps font-label-caps text-on-surface-variant border-b border-outline-variant/20 pb-2 mb-2">MISSION DIRECTIVE</h3>
+<div class="flex flex-col gap-2 flex-1 justify-center">
+<div class="flex justify-between items-center">
+<span class="text-xs font-label-caps text-on-surface-variant">OP MODE</span>
+<span class="text-sm font-telemetry-data text-primary-container">AUTONOMOUS</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-label-caps text-on-surface-variant">NAV STATE</span>
+<span class="text-sm font-telemetry-data text-green-400">ACTIVE</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-label-caps text-on-surface-variant">OBSTACLES</span>
+<span class="text-sm font-telemetry-data text-on-surface">CLEAR</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-label-caps text-on-surface-variant">SAFETY</span>
+<span class="text-sm font-telemetry-data text-green-400 bg-green-900/30 px-2 rounded border border-green-500/30">NOMINAL</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar: Environment -->
+<aside class="w-64 bg-surface-container rounded-lg scada-border flex flex-col gap-4 p-card-padding overflow-y-auto shrink-0">
+<div class="flex items-center gap-2 border-b border-outline-variant/20 pb-2 mb-2">
+<span class="material-symbols-outlined text-secondary text-xl">air</span>
+<h2 class="text-headline-sm font-headline-sm text-on-surface">ENVIRONMENT</h2>
+</div>
+<!-- Methane Card -->
+<div class="bg-surface-container-high p-3 rounded scada-border relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-red-500/10 rounded-bl-full"></div>
+<div class="flex justify-between items-start mb-2 relative z-10">
+<span class="text-label-caps font-label-caps text-on-surface-variant">CH4 (METHANE)</span>
+<span class="material-symbols-outlined text-red-400 text-lg">warning</span>
+</div>
+<div class="text-2xl font-telemetry-data text-red-400 font-bold text-glow relative z-10">0.02<span class="text-sm text-red-400/70 ml-1">%</span></div>
+<div class="w-full h-1 bg-surface-container-highest mt-2 rounded overflow-hidden">
+<div class="h-full bg-red-500 w-[20%] glow-error"></div>
+</div>
+</div>
+<!-- CO Card -->
+<div class="bg-surface-container-high p-3 rounded scada-border">
+<div class="flex justify-between items-start mb-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant">CO LEVEL</span>
+<span class="material-symbols-outlined text-green-400 text-lg">check_circle</span>
+</div>
+<div class="text-2xl font-telemetry-data text-green-400 font-bold">4<span class="text-sm text-green-400/70 ml-1">ppm</span></div>
+<div class="w-full h-1 bg-surface-container-highest mt-2 rounded overflow-hidden">
+<div class="h-full bg-green-500 w-[10%]"></div>
+</div>
+</div>
+<!-- PM Particles Card -->
+<div class="bg-surface-container-high p-3 rounded scada-border flex flex-col gap-2">
+<div class="flex justify-between items-start border-b border-outline-variant/10 pb-1">
+<span class="text-label-caps font-label-caps text-on-surface-variant">PARTICULATES</span>
+<span class="material-symbols-outlined text-primary-container text-lg">blur_on</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-telemetry-data text-on-surface-variant">PM1.0</span>
+<span class="text-sm font-telemetry-data text-on-surface">12 µg/m³</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-telemetry-data text-on-surface-variant">PM2.5</span>
+<span class="text-sm font-telemetry-data text-primary-container text-glow">34 µg/m³</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-xs font-telemetry-data text-on-surface-variant">PM10</span>
+<span class="text-sm font-telemetry-data text-on-surface">45 µg/m³</span>
+</div>
+</div>
+<!-- Ambience Split Card -->
+<div class="grid grid-cols-2 gap-2">
+<div class="bg-surface-container-high p-2 rounded scada-border flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mb-1">thermometer</span>
+<span class="text-lg font-telemetry-data text-on-surface">28°C</span>
+<span class="text-[9px] font-label-caps text-on-surface-variant mt-1">TEMP</span>
+</div>
+<div class="bg-surface-container-high p-2 rounded scada-border flex flex-col items-center justify-center text-center">
+<span class="material-symbols-outlined text-secondary text-sm mb-1">water_drop</span>
+<span class="text-lg font-telemetry-data text-secondary">65%</span>
+<span class="text-[9px] font-label-caps text-on-surface-variant mt-1">HUMIDITY</span>
+</div>
+</div>
+<!-- Water Presence -->
+<div class="bg-surface-container-high p-3 rounded scada-border flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant/20">
+<span class="material-symbols-outlined text-green-400">water</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant">INGRESS SENSOR</span>
+<span class="text-sm font-telemetry-data text-green-400">NONE DETECTED</span>
+</div>
+</div>
+</aside>
+</main>
+<!-- Bottom Footer / Live Log Strip -->
+<footer class="bg-surface-container-lowest/60 dark:bg-surface-container-lowest/60 flex justify-between items-center px-gutter py-1 fixed bottom-0 w-full z-50 backdrop-blur-md border-t border-outline-variant/10 h-[32px]">
+<div class="flex items-center gap-4 text-xs font-telemetry-data text-on-surface-variant w-1/3">
+<span class="text-primary-container">&gt;</span>
+<span>SYS_LOG</span>
+</div>
+<div class="flex-1 overflow-hidden relative h-full flex items-center">
+<div class="w-full flex justify-between px-4 text-[11px] font-telemetry-data opacity-80 border-l border-r border-outline-variant/20 h-full items-center">
+<span class="text-on-surface-variant"><span class="text-primary-container">[12:31:04]</span> LINK ESTABLISHED - SECTOR 7 PORTAL</span>
+<span class="text-on-surface-variant"><span class="text-primary-container">[12:32:15]</span> LIDAR CALIBRATION COMPLETE</span>
+<span class="text-green-400 text-glow"><span class="text-green-500">[12:33:00]</span> AUTONOMOUS SCAN SEQUENCE INITIATED</span>
+</div>
+</div>
+<div class="flex items-center justify-end gap-4 text-[10px] font-label-caps text-on-surface-variant w-1/3 text-right">
+<span>COAL INDIA LTD - AUTONOMOUS TUNNELING DIVISION 2024</span>
+</div>
+</footer>
+<script>
+        // Simple live clock script
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { hour12: false });
+            document.getElementById('live-clock').textContent = timeString;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body></html>
