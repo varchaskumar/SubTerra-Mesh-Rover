@@ -17,7 +17,7 @@ function Environment() {
           <AlertTriangle className="text-red-400 h-5 w-5" />
         </div>
         <div className="text-2xl font-telemetry-data text-red-400 font-bold text-glow relative z-10">
-          0.02<span className="text-sm text-red-400/70 ml-1">%</span>
+          0.02<span className="text-sm text-red-400/70 ml-1">ppm</span>
         </div>
         <div className="w-full h-1 bg-surface-container-highest mt-2 rounded overflow-hidden">
           <div className="h-full bg-red-500 w-[20%] glow-error"></div>

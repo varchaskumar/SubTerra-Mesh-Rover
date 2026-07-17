@@ -1,7 +1,11 @@
 import React from 'react';
-import { Bot, Thermometer, Router, Map, Activity, Radio, CheckCircle2, Circle } from 'lucide-react';
+import { Bot, Thermometer, Router, Map, Activity, Radio, CheckCircle2, Circle, Gamepad2 } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function RobotHealth() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <aside className="w-64 bg-surface-container rounded-lg scada-border flex flex-col gap-4 p-card-padding overflow-y-auto shrink-0 relative">
       <div className="flex items-center gap-2 border-b border-outline-variant/20 pb-2 mb-2">
@@ -78,17 +82,17 @@ function RobotHealth() {
       
       {/* Structural Sidebar */}
       <div className="mt-auto border-t border-outline-variant/20 pt-4 flex flex-col gap-2">
-        <button className="bg-primary/10 text-primary border-l-4 border-primary px-4 py-2 text-left text-label-caps font-label-caps flex items-center gap-3 w-full hover:bg-surface-container-high transition-all">
-          <Map className="h-4 w-4" />
-          MAPPING
-        </button>
-        <button className="text-on-surface-variant hover:text-on-surface px-4 py-2 text-left text-label-caps font-label-caps flex items-center gap-3 w-full hover:bg-surface-container-high transition-all">
+        <button 
+          onClick={() => navigate('/')}
+          className={`${location.pathname === '/' ? 'bg-primary/10 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high border-l-4 border-transparent'} px-4 py-2 text-left text-label-caps font-label-caps flex items-center gap-3 w-full transition-all`}>
           <Activity className="h-4 w-4" />
-          TELEMETRY
+          DASHBOARD
         </button>
-        <button className="text-on-surface-variant hover:text-on-surface px-4 py-2 text-left text-label-caps font-label-caps flex items-center gap-3 w-full hover:bg-surface-container-high transition-all">
-          <Radio className="h-4 w-4" />
-          SENSORS
+        <button 
+          onClick={() => navigate('/control')}
+          className={`${location.pathname === '/control' ? 'bg-primary/10 text-primary border-l-4 border-primary' : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high border-l-4 border-transparent'} px-4 py-2 text-left text-label-caps font-label-caps flex items-center gap-3 w-full transition-all`}>
+          <Gamepad2 className="h-4 w-4" />
+          ROBOT CONTROL
         </button>
       </div>
       <div className="mt-2 text-[9px] font-telemetry-data text-on-surface-variant/40 text-center uppercase tracking-widest">

@@ -27,11 +27,8 @@ function Viewport() {
 
         <div className="absolute inset-0 z-0 flex items-center justify-center">
           <model-viewer
-            src="/robot.glb"
+            src="/final_model.glb"
             camera-controls
-            auto-rotate
-            auto-rotate-delay="0"
-            rotation-per-second="20deg"
             shadow-intensity="1"
             interaction-prompt="none"
             touch-action="pan-y"
